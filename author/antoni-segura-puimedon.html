@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>People's front of Python - Antoni Segura Puimedon</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href=".././theme/css/main.css" type="text/css" />
+        
+        <link href="http://blog.antoni.me/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="People's front of Python Atom Feed" />
+        
+        
+
+        <!--[if IE]>
+                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+        <!--[if lte IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href=".././css/ie.css"/>
+                <script src=".././js/IE8.js" type="text/javascript"></script><![endif]-->
+
+        <!--[if lt IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href=".././css/ie6.css"/><![endif]-->
+
+</head>
+
+<body id="index" class="home">
+
+        <header id="banner" class="body">
+                <h1><a href="../.">People's front of Python </a></h1>
+                <nav><ul>
+                
+                
+                
+                
+                
+                    <li ><a href=".././category/entries.html">Entries</a></li>
+                
+                </ul></nav>
+        </header><!-- /#banner -->
+                
+
+            
+
+        
+        
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href=".././2012/10/mosh-vpn.html">MOSH: How I learned to stop worrying and love VPN</a></h1> 
+                    <footer class="post-info">
+        <abbr class="published" title="2012-10-25T00:00:00">
+                Thu 25 October 2012
+        </abbr>
+
+        
+        <address class="vcard author">
+                By <a class="url fn" href=".././author/antoni-segura-puimedon.html">Antoni Segura Puimedon</a>
+        </address>
+        
+<p>In <a href=".././category/entries.html">Entries</a>. </p>
+<p>tags: <a href=".././tag/mosh.html">mosh</a><a href=".././tag/ssh.html">ssh</a><a href=".././tag/vpn.html">vpn</a></p>
+
+
+</footer><!-- /.post-info --><h1>Keep your remote secure connection snappy on the go.</h1>
+<p>In this, the first entry of the People's Front of Python, I will explain the setup I use for maintaining access to my servers over the VPN in general and, specially, under changing network conditions.</p>
+<p>As the title indicates, the main component to achieve a snappy and resilient connection is
+<a href="http://mosh.mit.edu">mosh</a>. Mosh is a project of the Massachusetts Institute of Technology that implements a remote terminal over a secure UDP connection with the server. It is designed to be tolerant to connectivity loss while, at the same time, providing smart feedback for your actions, i.e., if you time faster than the connection can get the data through, you see immediately what you type underlined (the underline is removed when the data reaches the remote system).</p>
+<h1>Why would I want to use that?</h1>
+<p>I'm glad that you asked! You're probably thinking: "Here comes a hipster with a shiny new tool when I can currently achieve connectivity loss tolerance by starting a screen/tmux session once I ssh to the server...". Well, you got it, you are right! Errmm... I mean... No, it is not that! What I propose is to keep using ssh and screen (out of habit I've always used screen, I guess I should give tmux a go), but to access both of them in a more convenient way. I'll explain:</p>
+<p>Have you ever...
+<em> Found yourself cursing because you had to change from a wired connection to a wireless to attend some meeting or go to the bus and weren't in mood to detach, disconnect, ssh and reattach?
+</em> Used cat on a log that was too big for the network and found yourself begging for mercy to the gods of the internet that your Ctrl-C was allowed to go through to put 'cat' out of its misery?
+* Wished that you did not have for the network connection to get feedback on your actions?</p>
+<p>If the answer to any of those is a heartily and resounding <em>YES</em>, please, keep reading. Otherwise... Me from the past envies you in a non completely healthy way.</p>
+<h1>Requirements</h1>
+<p>You can pull all the requirements into your computer by just installing mosh on both the client and the remote hosts. You can do so by executing(with administrative rights):</p>
+<ul>
+<li>
+<p>Fedora/RHEL/RHEL derivatives <code>yum install mosh</code></p>
+</li>
+<li>
+<p>Debian (on stable you need to have the backports repository enabled) <code>apt-get install mosh</code></p>
+</li>
+<li>Gentoo <code>emerge net-misc/mosh</code></li>
+</ul>
+<h1>Configuration</h1>
+<p>For a basic use, there is no more configuration needed, you can just execute on the client: <code>mosh user@remote-ip</code> and mosh will use ssh to spawn it's server, get the UDP encrypted session key, and connect to the mosh server on the remote.</p>
+<p>I recommend though, to spend a bit more time and set up ssh in a nice way to have a more seamless connection. To do that:</p>
+<div class="codehilite"><pre><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span>
+<span class="n">ssh</span> <span class="n">user</span><span class="p">@</span><span class="n">remote</span><span class="o">-</span><span class="n">ip</span> <span class="s">&#39;mkdir ~/.ssh; echo &#39;</span>`<span class="nb">cat</span> <span class="o">~/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="p">.</span><span class="n">pub</span>`<span class="s">&#39; &gt;&gt; ~/.ssh/authorized_keys&#39;</span>
+<span class="nb">cat</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">config</span> <span class="o">&lt;&lt;</span> <span class="n">EOF</span>
+<span class="n">Host</span> <span class="n">myremote</span>
+    <span class="n">Hostname</span> <span class="n">remote</span><span class="o">-</span><span class="n">ip</span>
+    <span class="n">User</span>     <span class="n">user</span>
+<span class="n">EOF</span>
+</pre></div>
+
+
+<p>Now you can just do: <code>mosh myremote</code> and you will be automatically logged in.</p>
+<h1>How do I use it?</h1>
+<p>Usually I run a GNU screen(alright, fine, I'll admit I use byobu on my client not to setup my .screenrc) instance on my client in which I have named tabs for each of the remotes I usually need to work on that will always be accessible as long as the connection allows. If I need several terminals in any of those tabs it gets a little bit more complicated and I generally use a <a href="https://wiki.archlinux.org/index.php/GNU_Screen#Nested_Screen_Sessions">nested GNU Screen session</a>.</p>
+<p>Thanks to this, when I leave the office on Thursday to work from home on Friday, the only menial task I have on Friday morning is to connect to the VPN and <em>all my screen tabs come back to responsiveness without any interaction from my part</em>.</p>
+                </article>
+                
+                    
+<p class="paginator">
+    
+    Page 1 / 1
+    
+</p>
+
+                
+            </aside><!-- /#featured -->
+            
+        
+        
+        
+            </ol><!-- /#posts-list -->
+            
+            </section><!-- /#content -->
+        
+    
+
+
+        <section id="extras" class="body">
+        
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                        
+                            <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
+                        
+                            <li><a href="http://python.org">Python.org</a></li>
+                        
+                            <li><a href="http://jinja.pocoo.org">Jinja2</a></li>
+                        
+                        </ul>
+                </div><!-- /.blogroll -->
+        
+        
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+
+
+
+</body>
+</html>
