@@ -17,6 +17,7 @@ LINKS =  (('Pelican', 'http://docs.notmyidea.org/alexis/pelican/'),
 DEFAULT_PAGINATION = 10
 MARKUP = ('md')
 ARTICLE_URL = '{date:%Y}/{date:%m}/{slug}.html'
+DISQUS_SITENAME = "peoplesfrontofpython"
 
 # Social widget
 #SOCIAL = (('You can add links in your config file', '#'),)
