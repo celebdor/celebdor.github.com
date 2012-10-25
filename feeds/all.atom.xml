@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>People's front of Python</title><link href="http://blog.antoni.me/" rel="alternate"></link><link href="http://blog.antoni.me/feeds/all.atom.xml" rel="self"></link><id>http://blog.antoni.me/</id><updated>2012-10-25T00:00:00+02:00</updated><entry><title>MOSH: How I learned to stop worrying and love VPN</title><link href="http://blog.antoni.me/2012/10/mosh-vpn/" rel="alternate"></link><updated>2012-10-25T00:00:00+02:00</updated><author><name>Antoni Segura Puimedon</name></author><id>tag:blog.antoni.me,2012-10-25:2012/10/mosh-vpn/</id><summary type="html">&lt;h1&gt;Keep your remote secure connection snappy on the go.&lt;/h1&gt;
 &lt;p&gt;In this, the first entry of the People's Front of Python, I will explain the setup I use for maintaining access to my servers over the VPN in general and, specially, under changing network conditions.&lt;/p&gt;
 &lt;p&gt;As the title indicates, the main component to achieve a snappy and resilient connection is
-&lt;a href="http://mosh.mit.edu"&gt;mosh&lt;/a&gt;. Mosh is a project of the Massachusetts Institute of Technology that implements a remote terminal over a secure UDP connection with the server. It is designed to be tolerant to connectivity loss while, at the same time, providing smart feedback for your actions, i.e., if you time faster than the connection can get the data through, you see immediately what you type underlined (the underline is removed when the data reaches the remote system).&lt;/p&gt;
+&lt;a href="http://mosh.mit.edu"&gt;mosh&lt;/a&gt;. Mosh is a project of the Massachusetts Institute of Technology that implements a remote terminal over a secure UDP connection with the server. It is designed to be tolerant to connectivity loss while, at the same time, providing smart feedback for your actions, i.e., if you type faster than the connection can get the data through, you see immediately what you type underlined (the underline is removed when the data reaches the remote system).&lt;/p&gt;
 &lt;h1&gt;Why would I want to use that?&lt;/h1&gt;
 &lt;p&gt;I'm glad that you asked! You're probably thinking: "Here comes a hipster with a shiny new tool when I can currently achieve connectivity loss tolerance by starting a screen/tmux session once I ssh to the server...". Well, you got it, you are right! Errmm... I mean... No, it is not that! What I propose is to keep using ssh and screen (out of habit I've always used screen, I guess I should give tmux a go), but to access both of them in a more convenient way. I'll explain:&lt;/p&gt;
 &lt;p&gt;Have you ever...&lt;/p&gt;
@@ -14,7 +14,7 @@
 &lt;p&gt;Used cat on a log that was too big for the network and found yourself begging for mercy to the gods of the internet that your Ctrl-C was allowed to go through to put 'cat' out of its misery?&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Wished that you did not have for the network connection to get feedback on your actions?&lt;/p&gt;
+&lt;p&gt;Wished that you did not have to wait for the network connection roundtrip to get feedback on your actions?&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;If the answer to any of those is a heartily and resounding &lt;em&gt;YES&lt;/em&gt;, please, keep reading. Otherwise... Me from the past envies you in a non completely healthy way.&lt;/p&gt;
