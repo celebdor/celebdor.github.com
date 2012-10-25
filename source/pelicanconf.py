@@ -16,7 +16,8 @@ LINKS =  (('Pelican', 'http://docs.notmyidea.org/alexis/pelican/'),
 
 DEFAULT_PAGINATION = 10
 MARKUP = ('md')
-ARTICLE_URL = '{date:%Y}/{date:%m}/{slug}.html'
+ARTICLE_URL = '{date:%Y}/{date:%m}/{slug}/'
+ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{slug}/index.html'
 DISQUS_SITENAME = "peoplesfrontofpython"
 
 # Social widget
