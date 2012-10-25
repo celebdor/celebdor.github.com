@@ -16,8 +16,11 @@ As the title indicates, the main component to achieve a snappy and resilient con
 I'm glad that you asked! You're probably thinking: "Here comes a hipster with a shiny new tool when I can currently achieve connectivity loss tolerance by starting a screen/tmux session once I ssh to the server...". Well, you got it, you are right! Errmm... I mean... No, it is not that! What I propose is to keep using ssh and screen (out of habit I've always used screen, I guess I should give tmux a go), but to access both of them in a more convenient way. I'll explain:
 
 Have you ever...
+
 * Found yourself cursing because you had to change from a wired connection to a wireless to attend some meeting or go to the bus and weren't in mood to detach, disconnect, ssh and reattach?
+
 * Used cat on a log that was too big for the network and found yourself begging for mercy to the gods of the internet that your Ctrl-C was allowed to go through to put 'cat' out of its misery?
+
 * Wished that you did not have for the network connection to get feedback on your actions?
 
 If the answer to any of those is a heartily and resounding *YES*, please, keep reading. Otherwise... Me from the past envies you in a non completely healthy way.
