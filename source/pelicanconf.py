@@ -18,7 +18,6 @@ DEFAULT_PAGINATION = 10
 MARKUP = ('md')
 ARTICLE_URL = '{date:%Y}/{date:%m}/{slug}/'
 ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{slug}/index.html'
-DISQUS_SITENAME = "peoplesfrontofpython"
 
 # Social widget
 #SOCIAL = (('You can add links in your config file', '#'),)
